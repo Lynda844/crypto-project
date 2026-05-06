@@ -109,6 +109,58 @@ Choisissez un algorithme :
   0. Quitter
 ```
 
+### Lancement réseau entre deux PC
+
+Ce mode permet d'envoyer un message chiffré d'un PC vers un autre via TCP.
+
+#### 1. Sur le PC qui reçoit
+
+Lance le receiver sur le PC cible :
+
+```bash
+cd crypto_project
+python src/network/receiver.py --host 0.0.0.0 --port 5000 --algorithm aes --key "CLE_SHARED_16_OU_24_OU_32"
+```
+
+Si tu veux arrêter le serveur après un seul message, ajoute `--once` :
+
+```bash
+python src/network/receiver.py --host 0.0.0.0 --port 5000 --algorithm aes --key "CLE_SHARED_16_OU_24_OU_32" --once
+```
+
+#### 2. Sur le PC qui envoie
+
+Remplace `IP_DU_RECEIVER` par l'adresse IP du PC qui écoute :
+
+```bash
+cd crypto_project
+python src/network/sender.py --host IP_DU_RECEIVER --port 5000 --algorithm aes --key "CLE_SHARED_16_OU_24_OU_32" --message "Bonjour depuis l'autre PC"
+```
+
+#### Exemple de test rapide
+
+Pour tester sans deux machines, ouvre deux terminaux sur le même PC :
+
+Terminal 1 :
+
+```bash
+cd crypto_project
+python src/network/receiver.py --host 127.0.0.1 --port 5000 --algorithm aes --key "CLE_SHARED_16_OU_24_OU_32" --once
+```
+
+Terminal 2 :
+
+```bash
+cd crypto_project
+python src/network/sender.py --host 127.0.0.1 --port 5000 --algorithm aes --key "CLE_SHARED_16_OU_24_OU_32" --message "Test réseau"
+```
+
+Résultat attendu côté receiver :
+
+```text
+Message dechiffre: Test réseau
+```
+
 ---
 
 ## 🧪 Tests intégrés
