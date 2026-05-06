@@ -1,5 +1,12 @@
-from . import cesar, affine, playfair, substitution, vernam, hill
-
+try:
+    from . import cesar, affine, playfair, substitution, vernam, hill
+except ImportError:
+    import cesar
+    import affine
+    import playfair
+    import substitution
+    import vernam
+    import hill
 
 def print_menu():
     print("\n" + "="*60)

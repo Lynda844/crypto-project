@@ -1,4 +1,10 @@
-from .symmetric import aes, des, rc4, otp
+try:
+    from . import aes, des, rc4, otp
+except ImportError:
+    import aes
+    import des
+    import rc4
+    import otp
 
 
 def print_menu():
